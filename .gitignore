@@ -6,6 +6,11 @@
 *.o
 *.pm.tdy
 *.bs
+*.bak
+TM2-DuckDNS*
+ignore.txt
+*~
+token
 
 # Devel::Cover
 cover_db/

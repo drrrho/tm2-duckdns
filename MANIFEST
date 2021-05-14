@@ -2,8 +2,11 @@ Build.PL
 Changes
 lib/TM2/DuckDNS.pm
 MANIFEST			This list of files
-README
-t/00-load.t
+README.md
+ontologies/duckdns.ts
+t/05_update.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
+META.yml
+META.json

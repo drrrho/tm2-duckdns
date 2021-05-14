@@ -1,99 +1,51 @@
 package TM2::DuckDNS;
 
-use 5.006;
 use strict;
 use warnings;
 
 =head1 NAME
 
-TM2::DuckDNS - The great new TM2::DuckDNS!
-
-=head1 VERSION
-
-Version 0.01
+TM2::DuckDNS - TempleScript extension
 
 =cut
 
 our $VERSION = '0.01';
 
+=pod
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+   # not to be used from Perl
 
-Perhaps a little code snippet.
+=head1 DESCRIPTION
 
-    use TM2::DuckDNS;
+This ontological extension allows TempleScript applications to use the L<DuckDNS|www.duckdns.org> service
+to provide a given FQDN with an IP.
 
-    my $foo = TM2::DuckDNS->new();
-    ...
+The usual scenario is that an Internet site is only given a public IP address on a temporary basis
+(I<dynamic IP>). To allow external servers to find and/or identify this site, B<from the inside of the site> you
+can send a beacon HTTP signal to DuckDNS.org to update the IP address the signal is launched from:
 
-=head1 EXPORT
+=encoding utf-8
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+   %include file:duckdns.ts
 
-=head1 SUBROUTINES/METHODS
+   § isa ts:stream
+   return
+      <+ every 60 min                           # trigger on a regular basis
+    | ( "my-subdomain-at-duckdns" )             # only the subdomain you registered before
+    |->> duckdns:update ("124533-secret-duckdns-token-here")
+    |->> io:write2log                           # logging is always a good idea
 
-=head2 function1
+That should keep the FQDN uptodate:
 
-=cut
-
-sub function1 {
-}
-
-=head2 function2
-
-=cut
-
-sub function2 {
-}
+   dig my-subdomain-at-duckdns.duckdns.at
+   ...
+   your.ip.he.re
 
 =head1 AUTHOR
 
 Robert Barta, C<< <rho at devc.at> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-tm2-duckdns at rt.cpan.org>, or through
-the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=TM2-DuckDNS>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc TM2::DuckDNS
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<https://rt.cpan.org/NoAuth/Bugs.html?Dist=TM2-DuckDNS>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/TM2-DuckDNS>
-
-=item * CPAN Ratings
-
-L<https://cpanratings.perl.org/d/TM2-DuckDNS>
-
-=item * Search CPAN
-
-L<https://metacpan.org/release/TM2-DuckDNS>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 LICENSE AND COPYRIGHT
 

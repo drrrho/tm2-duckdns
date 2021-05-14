@@ -1,57 +1,48 @@
-TM2-DuckDNS
+# NAME
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+TM2::DuckDNS - TempleScript extension
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+# SYNOPSIS
 
+    # not to be used from Perl
 
-INSTALLATION
+# DESCRIPTION
 
-To install this module, run the following commands:
+This ontological extension allows TempleScript applications to use the [DuckDNS](https://metacpan.org/pod/www.duckdns.org) service
+to provide a given FQDN with an IP.
 
-	perl Build.PL
-	./Build
-	./Build test
-	./Build install
+The usual scenario is that an Internet site is only given a public IP address on a temporary basis
+(_dynamic IP_). To allow external servers to find and/or identify this site, **from the inside of the site** you
+can send a beacon HTTP signal to DuckDNS.org to update the IP address the signal is launched from:
 
-SUPPORT AND DOCUMENTATION
+    %include file:duckdns.ts
 
-After installing, you can find documentation for this module with the
-perldoc command.
+    § isa ts:stream
+    return
+       <+ every 60 min                           # trigger on a regular basis
+     | ( "my-subdomain-at-duckdns" )             # only the subdomain you registered before
+     |->> duckdns:update ("124533-secret-duckdns-token-here")
+     |->> io:write2log                           # logging is always a good idea
 
-    perldoc TM2::DuckDNS
+That should keep the FQDN uptodate:
 
-You can also look for information at:
+    dig my-subdomain-at-duckdns.duckdns.at
+    ...
+    your.ip.he.re
 
-    RT, CPAN's request tracker (report bugs here)
-        https://rt.cpan.org/NoAuth/Bugs.html?Dist=TM2-DuckDNS
+# AUTHOR
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/TM2-DuckDNS
+Robert Barta, `<rho at devc.at>`
 
-    CPAN Ratings
-        https://cpanratings.perl.org/d/TM2-DuckDNS
+# LICENSE AND COPYRIGHT
 
-    Search CPAN
-        https://metacpan.org/release/TM2-DuckDNS
-
-
-LICENSE AND COPYRIGHT
-
-Copyright (C) 2021 Robert Barta
+Copyright 2021 Robert Barta.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
 copy of the full license at:
 
-L<http://www.perlfoundation.org/artistic_license_2_0>
+[http://www.perlfoundation.org/artistic\_license\_2\_0](http://www.perlfoundation.org/artistic_license_2_0)
 
 Any use, modification, and distribution of the Standard or Modified
 Versions is governed by this Artistic License. By using, modifying or
@@ -82,4 +73,3 @@ YOUR LOCAL LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR
 CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-

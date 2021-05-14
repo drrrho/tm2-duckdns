@@ -8,7 +8,7 @@ TM2::DuckDNS - TempleScript extension
 
 # DESCRIPTION
 
-This ontological extension allows TempleScript applications to use the [DuckDNS](https://metacpan.org/pod/www.duckdns.org) service
+This ontological extension allows TempleScript applications to use the [DuckDNS](https://www.duckdns.org) service
 to provide a given FQDN with an IP.
 
 The usual scenario is that an Internet site is only given a public IP address on a temporary basis
@@ -26,7 +26,7 @@ can send a beacon HTTP signal to DuckDNS.org to update the IP address the signal
 
 That should keep the FQDN uptodate:
 
-    dig my-subdomain-at-duckdns.duckdns.at
+    $ dig my-subdomain-at-duckdns.duckdns.at
     ...
     your.ip.he.re
 

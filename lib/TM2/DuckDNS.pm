@@ -39,7 +39,7 @@ can send a beacon HTTP signal to DuckDNS.org to update the IP address the signal
 
 That should keep the FQDN uptodate:
 
-   $ dig my-subdomain-at-duckdns.duckdns.at
+   $ dig my-subdomain-at-duckdns.duckdns.com
    ...
    your.ip.he.re
 
